@@ -3,6 +3,7 @@ import './App.css';
 import { useState } from 'react';
 
 export default function Game(){
+  const [currentMove, setCurrentMove] = useState(0);
   const [xIsNext, setXIsNext] = useState(true);
   const [history, setHistory] = useState([Array(9).fill(null)])
   const currentSquares = history[history.length - 1];
@@ -15,6 +16,7 @@ export default function Game(){
 
   function jumpTo(nextMove) {
     // TODO
+    
   }
 
   const moves = history.map((squares, move) => {
@@ -25,7 +27,7 @@ export default function Game(){
       description = 'Go to game start';
     }
     return (
-      <li>  
+      <li key={move}>  
         <button onClick={()=>jumpTo(move)}>{description}</button>
       </li>
     )
@@ -97,11 +99,7 @@ function Square( {value, onSquareClick} ){
   )
 }
 
-function App() {
-  return (
-      <Board />
-  );
-}
+
 
 function calculateWinner(squares){
   const lines = [
