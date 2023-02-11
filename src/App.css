@@ -36,3 +36,30 @@
     transform: rotate(360deg);
   }
 }
+
+.board-row button {
+  width: 7rem;
+  height: 7rem;
+ border: .1rem solid black;
+ margin: .1rem;
+ font-size: 3rem; 
+ background-color: whitesmoke;
+ transition: all .3s ease-in;
+ vertical-align: top;
+}
+
+.board-row button:hover{
+  background-color: black;
+  color: whitesmoke;
+  transition: all .5s ease-out;
+  vertical-align: top;
+}
+
+.board-row button:active {
+  transform: rotateY( 180deg ) ;
+}
+
+.winner {
+  background-color: red;
+  color: red;
+}

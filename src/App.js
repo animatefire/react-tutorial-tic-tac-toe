@@ -8,7 +8,7 @@ export default function Game(){
   const [history, setHistory] = useState([Array(9).fill(null)])
   const currentSquares = history[currentMove];
   const [isReversed, setReversed] = useState(false);
-
+  
   function handlePlay(nextSquares) {
     const nextHistory = [...history.slice(0, currentMove+1), nextSquares]
     setHistory(nextHistory)
@@ -51,8 +51,17 @@ export default function Game(){
 }
 
 function Board({xIsNext, squares, onPlay}) {
-  const [winningSquares, setWinningSquares] = 
-  useState([null,null,null]);
+  
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+  ];
 
   function handleClick(i) {
     if (squares[i]) {
@@ -79,26 +88,47 @@ function Board({xIsNext, squares, onPlay}) {
 
   function Square( {value, onSquareClick} ){
     return (
-      <button className="square" onClick={onSquareClick}>
+      <button 
+        className= "square"
+        onClick={onSquareClick}>
         { value }
       </button>
     )
   }
 
+  function calculateWinningSquares(squares){
+    for (let i = 0; i < lines.length; i++) {
+      const [a, b, c] = lines[i];
+      if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]){
+        return [lines[i]]
+      }
+    }
+    return [null,null,null];
+  }
+
+  function calculateWinner(squares){
+    const winner = calculateWinningSquares(squares) 
+    return [winner[0]]
+  }
+
+
+
   function RenderSquares({size, startingIndex}) {
-    let row = []
-    
-    
+    // const [winningSquares, setWinningSquares] = useState([null, null, null])
+    const row = []
+    // setWinningSquares(calculateWinningSquares(squares));
+    const winningSquares = calculateWinningSquares(squares);
+    console.log (winningSquares)
     for (let i = startingIndex; i < size + startingIndex; i++) {
-      row.push(<Square 
-      key={i} 
-      value={squares[i]} 
-      onSquareClick={() => handleClick(i)} 
-      className = { i === winningSquares[0] && 
-                    i === winningSquares[1] && 
-                    i === winningSquares[2] ? 
-                    'winner':''}
-                    
+      row.push (
+      <Square 
+        key={i} 
+        value={squares[i]} 
+        onSquareClick={() => handleClick(i)} 
+        className = {
+          i === winningSquares[0] || i === winningSquares[1] || i === winningSquares[3] ? 
+          "winner" : 
+          ""}
       />
       )
     }
@@ -116,6 +146,7 @@ function Board({xIsNext, squares, onPlay}) {
   }
 
 
+  
   return (
       <>
         <div className="status">{status}</div>
@@ -125,32 +156,4 @@ function Board({xIsNext, squares, onPlay}) {
       </>
     )
 
-    function calculateWinner(squares){
-      const lines = [
-        [0, 1, 2],
-        [3, 4, 5],
-        [6, 7, 8],
-        [0, 3, 6],
-        [1, 4, 7],
-        [2, 5, 8],
-        [0, 4, 8],
-        [2, 4, 6]
-      ];
-    
-      let winningSquares;
-
-      for (let i = 0; i < lines.length; i++) {
-        const [a, b, c] = lines[i];
-        if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]){
-          
-          winningSquares = lines[i];
-          
-          return [squares[a]]
-        }
-      }
-      return null;
-    }
-
 }
-
-
