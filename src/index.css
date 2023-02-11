@@ -20,10 +20,26 @@ code {
  font-size: 3rem; 
  background-color: whitesmoke;
  transition: all .3s ease-in;
+ vertical-align: top;
 }
 
-button:hover{
+.board-row button:hover{
   background-color: black;
   color: whitesmoke;
   transition: all .5s ease-out;
+  vertical-align: top;
+}
+
+.board-row button:active {
+  transform: rotateY( 180deg ) ;
+}
+
+/*
+text {
+  vertical-align: top;
+}
+*/
+
+.winner {
+  background-color: red
 }
