@@ -59,7 +59,8 @@
   transform: rotateY( 180deg ) ;
 }
 
-.winner {
+.board-row .winner {
+  transition: all .3s ease-in;
   background-color: red;
-  color: red;
+  color: whitesmoke;
 }
