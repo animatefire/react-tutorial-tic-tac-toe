@@ -1,5 +1,6 @@
 // import logo from './logo.svg';
 import './App.css';
+import './index.css';
 import { useState } from 'react';
 
 export default function Game(){
@@ -51,17 +52,6 @@ export default function Game(){
 }
 
 function Board({xIsNext, squares, onPlay}) {
-  
-  const lines = [
-    [0, 1, 2],
-    [3, 4, 5],
-    [6, 7, 8],
-    [0, 3, 6],
-    [1, 4, 7],
-    [2, 5, 8],
-    [0, 4, 8],
-    [2, 4, 6]
-  ];
 
   function handleClick(i) {
     if (squares[i]) {
@@ -76,59 +66,62 @@ function Board({xIsNext, squares, onPlay}) {
     onPlay(nextSquares);
   }
 
-  
-  const winner = calculateWinner(squares)
+  const winnerData = calculateWinnerData(squares);
+  const winningSquares = winnerData[0];
+  const winner = winnerData[1]
   let status;
 
-  if (winner) {
+  if (winnerData) {
     status = "Winner: " + winner; 
   } else {
     status = "Next player: " + (xIsNext ? "X" : "O");
   }
 
-  function Square( {value, onSquareClick} ){
+  function Square( {value, onSquareClick, i} ){
+
     return (
       <button 
-        className= "square"
+        key = {i}
+        className = { 
+        i === winningSquares[0] || i === winningSquares[1] || i === winningSquares[2] ? 
+        "winner" : "square"}
         onClick={onSquareClick}>
         { value }
       </button>
     )
   }
 
-  function calculateWinningSquares(squares){
+  function calculateWinnerData(squares){
+    
+  const lines = [
+    [0, 1, 2],
+    [3, 4, 5],
+    [6, 7, 8],
+    [0, 3, 6],
+    [1, 4, 7],
+    [2, 5, 8],
+    [0, 4, 8],
+    [2, 4, 6]
+  ];
     for (let i = 0; i < lines.length; i++) {
-      const [a, b, c] = lines[i];
+      let [a,b,c] = lines[i]
       if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]){
-        return [lines[i]]
+        return [lines[i], squares[a]]
       }
     }
-    return [null,null,null];
+    return [[null, null, null], null];
   }
-
-  function calculateWinner(squares){
-    const winner = calculateWinningSquares(squares) 
-    return [winner[0]]
-  }
-
-
 
   function RenderSquares({size, startingIndex}) {
-    // const [winningSquares, setWinningSquares] = useState([null, null, null])
+    console.log(winningSquares)
     const row = []
-    // setWinningSquares(calculateWinningSquares(squares));
-    const winningSquares = calculateWinningSquares(squares);
-    console.log (winningSquares)
     for (let i = startingIndex; i < size + startingIndex; i++) {
       row.push (
       <Square 
         key={i} 
         value={squares[i]} 
         onSquareClick={() => handleClick(i)} 
-        className = {
-          i === winningSquares[0] || i === winningSquares[1] || i === winningSquares[3] ? 
-          "winner" : 
-          ""}
+        i={i}
       />
       )
     }
@@ -145,8 +138,6 @@ function Board({xIsNext, squares, onPlay}) {
       )
   }
 
-
-  
   return (
       <>
         <div className="status">{status}</div>
