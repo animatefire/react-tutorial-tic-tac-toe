@@ -37,6 +37,7 @@
   }
 }
 
+
 .board-row button {
   width: 7rem;
   height: 7rem;
@@ -48,7 +49,7 @@
  vertical-align: top;
 }
 
-.board-row button:hover{
+.board-row button:hover {
   background-color: black;
   color: whitesmoke;
   transition: all .5s ease-out;
@@ -61,6 +62,6 @@
 
 .board-row .winner {
   transition: all .3s ease-in;
-  background-color: red;
+  background-color: darkslategray;
   color: whitesmoke;
 }
