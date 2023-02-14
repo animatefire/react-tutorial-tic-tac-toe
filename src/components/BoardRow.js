@@ -1,13 +1,9 @@
 import Square from './Square.js'
 
-
-
 function RenderSquares({size, startingIndex, winningSquares, squares, winner, xIsNext, onPlay}) {
     function handleClick(i) {
         if (squares[i] || winner) {
-          return; 
-          // Early return...so as not to change the value of a square 
-          // after it's been placed...or a winner has been crowned.
+          return; // If a square already exists, or there's a winner.
         } 
     
         const nextSquares = squares.slice();
@@ -34,11 +30,11 @@ function RenderSquares({size, startingIndex, winningSquares, squares, winner, xI
     return row
   }
 
-export default function BoardRow(size, startingIndex){
+export default function BoardRow(size, startingIndex, winningSquares, squares, winner, xIsNext, onPlay){
     return ( 
       <div className="board-row">
         {
-          RenderSquares(size, startingIndex)
+          RenderSquares(size, startingIndex, winningSquares, squares, winner, xIsNext, onPlay)
         }
       </div> 
     )
