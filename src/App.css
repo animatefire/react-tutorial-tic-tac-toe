@@ -65,3 +65,22 @@
   background-color: darkslategray;
   color: whitesmoke;
 }
+
+p {
+  font-weight: heavy;
+  font-size: 2rem;
+  margin: auto 0;
+  float: right;
+}
+
+.status {
+  transition: all .3s ease-in;
+  color: darkslategray;
+
+}
+
+.winner {
+  transition: all .3s ease-in;
+  background-color: darkslategray;
+  color: whitesmoke;
+}

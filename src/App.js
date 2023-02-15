@@ -20,9 +20,9 @@ export default function Game(){
   return (
     <div className="game">
       <div className="game-board">
-        <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay}/>
+        <Board xIsNext={xIsNext} squares={currentSquares} onPlay={handlePlay} history={history}/>
       </div>
-       <Moves history={history} setCurrentMove={setCurrentMove}/>
+       <Moves history={history} setCurrentMove={setCurrentMove} />
     </div>
   )
 }

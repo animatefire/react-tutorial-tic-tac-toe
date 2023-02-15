@@ -4,8 +4,11 @@ export default function Square( {value, onSquareClick, i, winningSquares} ){
       <button 
         key = {i}
         className = { 
-        i === winningSquares[0] || i === winningSquares[1] || i === winningSquares[2] ? 
-        "winner" : "square"}
+          i === winningSquares[0] ||  // If any button
+          i === winningSquares[1] ||  // is a winning button
+          i === winningSquares[2] ?  
+          "winner" : "square"         // assign it .winner css class
+        }
         onClick={onSquareClick}>
         { value }
       </button>

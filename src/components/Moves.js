@@ -3,15 +3,14 @@ import { useState } from 'react';
 export default function Moves({history, setCurrentMove}){
 const [isReversed, setReversed] = useState(false);
 
-
     function jumpTo(nextMove) {
         setCurrentMove(nextMove)
       }
 
-//    console.log(history)
-
     const moves = history.map((key, move) => {
-        let description;
+        console.log(key)
+        let description, column, row;
+
         if (move === history.length - 1) {
             description = 'You are at move #' + move;
         } else if (move > 0) {
@@ -26,8 +25,6 @@ const [isReversed, setReversed] = useState(false);
             </li>
         )
   })
-
-    console.log(moves)
 
     return (
         <>
